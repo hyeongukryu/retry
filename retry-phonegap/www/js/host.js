@@ -7,7 +7,9 @@ var app = {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     onDeviceReady: function() {
-        document.getElementById('host').contentWindow.app = app;
+        setTimeout(function () {
+            document.getElementById('host').contentWindow.app = app;
+        }, 500);
     },
     open: function(url, name) {
         window.open(url, name);
