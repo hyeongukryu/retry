@@ -85,7 +85,7 @@ angular.module('retryApp.controllers', [])
         }
 
         var body = {
-          sessionId: data.sessionId;
+          sessionId: data.sessionId
         };
         TicketService.readLatestTicketBySessionId(body, function (data) {
           updateImage(data.content);
