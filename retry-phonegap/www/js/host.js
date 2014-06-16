@@ -11,5 +11,8 @@ var app = {
     },
     open: function(url, name) {
         window.open(url, name);
+    },
+    scan: function (success, fail) {
+        cordova.plugins.barcodeScanner.scan(success, fail);
     }
 };
