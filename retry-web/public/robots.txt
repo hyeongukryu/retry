@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /api/1/
+Disallow: /partials/
+Disallow: /img/
+Disallow: /js/
+Disallow: /styles/

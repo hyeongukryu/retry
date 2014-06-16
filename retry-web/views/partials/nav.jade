@@ -1,0 +1,32 @@
+.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand.logo(ui-sref='retry.home')
+        strong 다시 입력하세요
+      - if (env === 'development')
+        div.navbar-brand
+          p.warn-dev TEST
+    .navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li(ui-sref-active='active')
+          a(ui-sref='retry.home') 홈
+        li(ui-sref-active='active')
+          a(ui-sref='retry.guide') 안내
+        li(ui-sref-active='active', access-level='everyone')
+          a(ui-sref='retry.sessions') 세션
+        li(ui-sref-active='active', access-level='everyone')
+          a(ui-sref='retry.scanner') 스캐너
+        li(ui-sref-active='active', access-level='everyone')
+          a(ui-sref='retry.me') 내 정보
+        li(ui-sref-active='active', access-level='admin')
+          a(ui-sref='retry.admin') 관리
+      ul.nav.navbar-nav.navbar-right
+        li(access-level='')
+          a(href='/login') 로그인
+        li(access-level='everyone')
+          a(href='/logout') 로그아웃

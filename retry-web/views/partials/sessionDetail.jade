@@ -1,0 +1,56 @@
+.container
+  .page-header
+    h1
+      | 세션 상세 정보 
+      small {{ sessionTitle }}
+  div
+    tabset
+      tab(heading='기본 정보')
+        p(ng-show='!sessionId') 불러오는 중
+        dl.dl-horizontal(ng-show='sessionId')
+          dt 번호
+          dd {{ sessionId }}
+          dt 제목
+          dd {{ sessionTitle }}
+          dt 주최자
+          dd {{ sessionHostUserName }}
+          dt 동시성
+          dd {{ sessionConcurrency }}
+          dt 생성 시각
+          dd {{ sessionTimestamp | dateLocal }}
+      tab(heading='QR 코드')
+        p.text-center(ng-show='!isHost') 세션 주최자만 QR 코드를 확인할 수 있습니다.
+        div.text-center(ng-show='isHost')
+          img.img-qrcode(ng-src='{{ imageUrl | trustAsUrl }}')
+      tab(heading='티켓 사용 기록')
+        p(ng-show='!attendances') 불러오는 중
+        table(ng-show='attendances')
+          thead
+            tr
+              th 번호
+              th 티켓 번호
+              th 사용자 이름
+              th 시각
+              th 인정 여부
+          tbody
+            tr(ng-repeat='attendance in attendances')
+              td {{ attendance.attendanceId }}
+              td {{ attendance.ticketId }}
+              td {{ attendance.userName }}
+              td {{ attendance.timestamp | dateLocal }}
+              td {{ attendance.accepted ? '예' : '아니오' }}
+      tab(heading='출석부')
+        p(ng-show='!records') 불러오는 중
+        table(ng-show='records')
+          thead
+            tr
+              th 시각
+              th 티켓 사용 번호
+              th 사용자 이름
+              th 판정
+          tbody
+            tr(ng-repeat='record in records')
+              td {{ record.timestamp }}
+              td {{ record.attendanceId }}
+              td {{ record.userName }}
+              td {{ record.judgement }}

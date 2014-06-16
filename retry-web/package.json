@@ -1,0 +1,29 @@
+{
+  "name": "retry-web",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node retry-web.js"
+  },
+  "dependencies": {
+    "express": "*",
+    "morgan": "*",
+    "body-parser": "*",
+    "method-override": "*",
+    "cookie-parser": "*",
+    "express-session": "*",
+    "express-mysql-session": "https://github.com/mintrupt/express-mysql-session/tarball/master",
+    "view-helpers": "*",
+    "jade": "*",
+    "stylus": "*",
+    "consolidate": "*",
+    "mysql": "*",
+    "passport": "*",
+    "passport-facebook": "*",
+    "lodash": "*",
+    "async": "*",
+    "uglify-js": "*",
+    "cookie": "*",
+    "csurf": "*"
+  }
+}
