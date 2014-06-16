@@ -3,15 +3,6 @@ angular.module('retryApp.controllers', [])
 .controller('HomeController', function ($scope) {
 })
 .controller('GuideController', function ($scope) {
-  if (window.app) {
-    window.app.scan(function (data) {
-      alert(data);
-    }, function (data) {
-      alert(data);
-    });
-  } else {
-    alert('모바일 앱에서 실행하세요');
-  }
 })
 
 .controller('SessionsController', function ($scope, SessionsService, $state) {
@@ -47,7 +38,7 @@ angular.module('retryApp.controllers', [])
   };
 })
 
-.controller('SessionDetailController', function ($scope, $cookieStore, $stateParams, SessionsService, $timeout) {
+.controller('SessionDetailController', function ($scope, $cookieStore, $stateParams, SessionsService, $timeout, TicketsService, AttendancesService, RecordsService) {
 
   var buildQrCodeUrl = function () {
     var template = 'http://chart.apis.google.com/chart?cht=qr&chs=512x512&chl={content}';
@@ -76,7 +67,8 @@ angular.module('retryApp.controllers', [])
       });
 
       var updateImage = function (content) {
-        $scope.imageUrl = buildQrCodeUrl(content);
+        $scope.imageUrl = buildQrCodeUrl(content.replace('#', '%23'));
+        $scope.codeUrl = content;
       };
 
       var refreshTicketImage = function () {
@@ -84,10 +76,7 @@ angular.module('retryApp.controllers', [])
           return;
         }
 
-        var body = {
-          sessionId: data.sessionId
-        };
-        TicketService.readLatestTicketBySessionId(body, function (data) {
+        TicketsService.readLatestTicketBySessionId(sessionId, function (data) {
           updateImage(data.content);
           $timeout(refreshTicketImage, 500);
         });
@@ -96,8 +85,13 @@ angular.module('retryApp.controllers', [])
     }
   });
 
-  // 시도 기록 읽기
-  // 출석 기록 읽기
+  AttendancesService.readAllBySessionId(sessionId, function (data) {
+    $scope.attendances = data;
+  });
+
+  RecordsService.readAllBySessionId(sessionId, function (data) {
+    $scope.records = data;
+  });
 })
 
 .controller('MeController', function ($scope) {
@@ -106,5 +100,10 @@ angular.module('retryApp.controllers', [])
 .controller('AdminController', function ($scope) {
 })
 
-.controller('ScannerController', function ($scope) {
+.controller('ScanController', function ($scope, $stateParams, ScansService) {
+  var ticketCode = $stateParams.ticketCode;
+  $scope.message = '서버와 통신하고 있습니다.';
+  ScansService.scan(ticketCode, function (data) {
+    $scope.message = data.message;
+  });
 })

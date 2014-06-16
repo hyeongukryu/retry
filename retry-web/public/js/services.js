@@ -47,12 +47,48 @@ angular.module('retryApp.services', ['ngCookies'])
   };
 })
 
-.factory('TicketService', function ($http) {
+.factory('TicketsService', function ($http) {
   return {
-    readLatestTicketBySessionId: function (body, cb) {
-      $http.get(apiBase + 'tickets').success(function (data) {
+    readLatestTicketBySessionId: function (sessionId, cb) {
+      $http.get(apiBase + 'tickets?sessionId=' + sessionId).success(function (data) {
         cb(data);
       });
+    }
+  }
+})
+
+.factory('AttendancesService', function ($http) {
+  return {
+    readAllBySessionId: function (sessionId, cb) {
+      $http.get(apiBase + 'attendances?sessionId=' + sessionId).success(function (data) {
+        cb(data);
+      });
+    }
+  }
+})
+
+.factory('RecordsService', function ($http) {
+  return {
+    readAllBySessionId: function (sessionId, cb) {
+      $http.get(apiBase + 'records?sessionId=' + sessionId).success(function (data) {
+        cb(data);
+      });
+    }
+  }
+})
+
+.factory('ScansService', function ($http) {
+  return {
+    scan: function (ticketCode, cb) {
+      $http.post(apiBase + 'scans', {
+        ticketCode: ticketCode
+      })
+        .success(function (data) {
+          cb(data);
+        })
+        .error(function () {
+          cb(true);
+        })
     }
   }
 })

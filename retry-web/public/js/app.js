@@ -98,12 +98,12 @@ angular.module('retryApp',
         }
       }
     })
-    .state('retry.scanner', {
-      url: '/scanner',
+    .state('retry.scan', {
+      url: '/scan/:ticketCode',
       views: {
         'content': {
-          templateUrl: 'partials/scanner',
-          controller: 'ScannerController'
+          templateUrl: 'partials/scan',
+          controller: 'ScanController'
         }
       }
     })
