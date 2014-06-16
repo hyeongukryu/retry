@@ -2,6 +2,8 @@ module.exports = function (keys) {
   var cookie = require('cookie');
   var _ = require('lodash');
 
+  // keys에 해당하는 쿠키만 사용자에게 전송하고
+  // 나머지는 세션으로 처리합니다.
   return function (app) {
     app.use(function (req, res, next) {
       var addHeader = function (name, val) {

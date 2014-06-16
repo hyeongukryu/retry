@@ -5,11 +5,13 @@ module.exports = function (app) {
   var _ = require('lodash');
 
   var db = {};
+  // 질의를 직접 JavaScript 소스에 넣을 때 사용
   db.longQuery = function () {
     var args = Array.prototype.slice.apply(arguments);
     return args.join(' ');
   };
 
+  // 질의를 별도 SQL 파일로 분리할 때 사용
   db.sql = function () {
     var cache = {};
     return function (key) {
@@ -20,6 +22,8 @@ module.exports = function (app) {
     }
   }();
 
+  // 폭포의 시작과 끝에서 트랜잭션 시작과 커밋을 자동으로 수행합니다.
+  // 메서드 체이닝을 사용하여 소스를 간단하게 합니다.
   db.waterfall = function (conn, sql, params, cb) {
     if (sql) {
       // then이 하나이고 sql 파일을 사용하는 경우
@@ -45,6 +49,7 @@ module.exports = function (app) {
     return chain;
   };
 
+  // waterfall의 이전 버전입니다. 배열을 받습니다.
   db.waterfallEnd = function (conn, functions, callback) {
     // 연결을 여기에서 처음 시작하였는지를 나타냅니다.
     var entry = !conn;

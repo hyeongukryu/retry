@@ -3,6 +3,7 @@ angular.module('retryApp.directives',
   ]
 )
 
+// 권한에 따라서 메뉴 표시 또는 감추기
 .directive('accessLevel', function ($rootScope, AccessControl) {
   return {
     link: function (scope, element, attrs) {

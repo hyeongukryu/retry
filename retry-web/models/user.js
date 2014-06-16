@@ -3,6 +3,7 @@ var _ = require('lodash');
 module.exports = function (app, db) {
 
   // 류형욱
+  // 스코프가 앱 단위로 되어 있는 사용자 Id이므로 공개되어도 큰 문제 없습니다.
   var adminList = [751678611541597];
 
   return {
@@ -79,6 +80,8 @@ module.exports = function (app, db) {
         });
     },
 
+    // 사용자 가입 및 인증 작업을 수행합니다.
+    // Facebook 계정과 관련이 있는 사용자가 없으면 자동으로 생성합니다.
     authenticate: function (profile, cb, conn) {
       db.waterfall(conn)
         .then(function (fall, conn) {

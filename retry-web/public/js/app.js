@@ -11,7 +11,9 @@ angular.module('retryApp',
 )
 
 .config(function ($httpProvider) {
+  // CSRF 토큰 설정
   $httpProvider.defaults.xsrfCookieName = 'csrfToken';
+  // 오류가 발생했을 때 처리하는 방법
   var interceptor = function ($location, $q) {
     var success = function (response) {
       return response;
@@ -31,6 +33,7 @@ angular.module('retryApp',
 
 .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
   
+  // 상태 정의
   $stateProvider
     .state('retry', {
       url: '',

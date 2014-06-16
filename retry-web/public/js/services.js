@@ -2,6 +2,7 @@ var apiBase = '/api/1/';
 
 angular.module('retryApp.services', ['ngCookies'])
 
+// 서버에서 보내는 userRole 쿠키는 현재 사용자의 권한과 관련이 있습니다.
 .factory('AccessControl', function ($cookieStore, $rootScope) {
   $rootScope.$watch(
     function () {
@@ -23,6 +24,7 @@ angular.module('retryApp.services', ['ngCookies'])
   };
 })
 
+// 아래 서비스들은 서버에서 제공하는 API를 사용합니다.
 .factory('SessionsService', function ($http) {
   return {
     create: function (body, cb) {

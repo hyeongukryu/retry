@@ -1,5 +1,7 @@
 module.exports = function (app, db) {
   return {
+    // 구현 시간이 부족하여 SQL에서 처리해야 할 내용을 애플리케이션 서버에서 처리합니다.
+    // 부하가 큰 환경에서 성능 및 데이터 정합성 문제가 발생할 가능성이 있습니다.
     checkAttendedByUserId: function (userId, sessionId, concurrency, cb, conn) {
       var minTime = null;
       db.waterfall(conn)
@@ -136,11 +138,6 @@ module.exports = function (app, db) {
             }
           }
         });
-
-      // 사용자 이름이 주어지면 출석 여부 반환하기
-      // 1. 동시성 가져오기
-      // 2. 사용자의 모든 티켓 가져오기
-      // 3. 순회하면서 티켓 유효성 검사
     }
   }
 };

@@ -1,5 +1,7 @@
 module.exports = function (app, db) {
   return {
+    // 구현 시간이 부족하여 SQL에서 처리해야 할 내용을 애플리케이션 서버에서 처리합니다.
+    // 부하가 큰 환경에서 성능 및 데이터 정합성 문제가 발생할 가능성이 있습니다.
     readAllBySessionId: function (sessionId, cb, conn) {
       var concurrency = null;
       var results = [];
